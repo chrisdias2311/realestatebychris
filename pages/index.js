@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
+import Property from "../components/Property";
 
 export const Banner = ({ purpose, title1, title2, desc1, desc2, buttonText, linkName, imageUrl }) => (
   <Flex flexWrap='wrap' justifyContent='center' alignItems='center' m='10'>
@@ -17,8 +18,7 @@ export const Banner = ({ purpose, title1, title2, desc1, desc2, buttonText, link
   </Flex>
 );
 
-export default function Home({propertiesForSale, propertiesForRent}) {
-  console.log(propertiesForSale, propertiesForRent);
+export default function Home({ propertiesForSale, propertiesForRent }) {
   return (
     <Box>
       <Banner
@@ -33,7 +33,7 @@ export default function Home({propertiesForSale, propertiesForRent}) {
       />
 
       <Flex flexWrap="wrap">
-        {/* Fetch the properties and map over them */}
+        {propertiesForRent.map((property) => <Property property={property} key={property.id}></Property>)}
       </Flex>
 
       <Banner
@@ -46,6 +46,10 @@ export default function Home({propertiesForSale, propertiesForRent}) {
         linkName="/searcj?purpose=for-sale"
         imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008"
       />
+
+      <Flex flexWrap="wrap">
+        {propertiesForSale.map((property) => <Property property={property} key={property.id}></Property>)}
+      </Flex>
     </Box>
   )
 }
